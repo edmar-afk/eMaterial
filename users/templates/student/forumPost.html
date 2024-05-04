@@ -1,0 +1,194 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Forums</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+			rel="stylesheet" />
+		{% tailwind_css %}
+	</head>
+	<body>
+		<button
+			data-drawer-target="cta-button-sidebar"
+			data-drawer-toggle="cta-button-sidebar"
+			aria-controls="cta-button-sidebar"
+			type="button"
+			class="fixed bg-green-400 inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+			<span class="sr-only">Open sidebar</span>
+			<svg
+				class="w-6 h-6"
+				aria-hidden="true"
+				fill="currentColor"
+				viewBox="0 0 20 20"
+				xmlns="http://www.w3.org/2000/svg">
+				<path
+					clip-rule="evenodd"
+					fill-rule="evenodd"
+					d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+			</svg>
+		</button>
+
+		{% include 'includes/sidebar.html' %}
+
+		<nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
+			<div class="px-3 py-3 lg:px-5 lg:pl-3">
+				<div class="flex items-center justify-between">
+					<div class="flex items-center justify-start rtl:justify-end">
+						<button
+							data-drawer-target="logo-sidebar"
+							data-drawer-toggle="logo-sidebar"
+							aria-controls="logo-sidebar"
+							type="button"
+							class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+							<span class="sr-only">Open sidebar</span>
+							<svg
+								class="w-6 h-6"
+								aria-hidden="true"
+								fill="currentColor"
+								viewBox="0 0 20 20"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									clip-rule="evenodd"
+									fill-rule="evenodd"
+									d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+							</svg>
+						</button>
+						<a
+							href="#"
+							class="flex ms-2 md:me-24">
+							<span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-gray-800">
+								BNHS E-Material
+							</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<div class="p-4 sm:ml-64">
+			<div class="">
+				<div class="flex items-center justify-start">
+					<div class="px-1 sm:px-8 py-1 sm:py-6 mt-14">
+						<div class="bg-white">
+							<div class="flex items-center">
+								<p class="ml-2 text-gray-500">{{forum.uploader.user.first_name}} {{forum.uploader.user.last_name}}</p>
+							</div>
+							<div class="mt-4">
+								<h1
+									data-modal-target="{{forum.id}}-modal"
+									data-modal-toggle="{{forum.id}}-modal"
+									class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer">
+									{{forum.title}}
+								</h1>
+								<p class="mt-2 text-sm font-semibold text-gray-400">
+									<b class="mr-2 text-gray-900">{{forum.uploader.first_name}}</b>
+									{{forum.upload_date}}
+								</p>
+								<p class="mt-4 text-md text-gray-600 break-all italic">"{{forum.description}}"</p>
+							</div>
+						</div>
+						<p class="ml-3 py-4 my-14 font-bold">Comments</p>
+					</div>
+				</div>
+				<div class="mt-4">
+					{% for comment in comments %}
+					<div class="flex flex-col py-2 px-8">
+						<div class="p-3">
+							<div class="flex justify-between items-center mb-2">
+								<div class="flex items-center">
+									<p class="inline-flex items-center mr-3 text-md text-gray-900 font-bold">
+										<!-- <img
+											class="mr-2 w-8 h-8 rounded-full"
+											src="{{comment.commentors.student.profile_pic}}" /> -->
+										{{comment.commentors.first_name}}
+									</p>
+									<p class="text-sm text-gray-600">{{comment.comment_date|date:"F j, Y, g:i a" }}</p>
+								</div>
+							</div>
+							<p class="text-gray-500 ml-1">{{comment.comment}}</p>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+
+				<form
+					class="space-y-4 p-2 bg-white py-2 sticky bottom-0 left-0"
+					action="#"
+					method="post"
+					enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="col-span-2">
+						<input
+							type="text"
+							name="post"
+							class="bg-gray-50 border hidden border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 placeholder-gray-400"
+							value="{{forum.id}}"
+							required />
+
+						<input
+							type="text"
+							name="commentor"
+							class="bg-gray-50 hidden border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 placeholder-gray-400"
+							value="{{student.user.id}}"
+							required />
+						<input
+							type="text"
+							name="comment"
+							id="title"
+							class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
+							placeholder="Write comment here"
+							required />
+					</div>
+					<div>
+						<button
+							type="submit"
+							class="w-lg text-blue-800 border-2 border-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+							Comment
+						</button>
+						<a
+							href="{% url 'student_forum' %}"
+							class="w-lg text-red-600 border-2 border-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+							Back
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<script>
+			// JavaScript function to handle search functionality
+			function search() {
+				// Get the search input value
+				var searchInput = document.getElementById('searchInput').value.toLowerCase();
+
+				// Get all card elements
+				var cards = document.getElementsByClassName('material-search');
+
+				// Loop through each card
+				for (var i = 0; i < cards.length; i++) {
+					// Get the material name for each card
+					var materialName = cards[i].querySelector('.text-gray-900').innerText.toLowerCase();
+
+					// Check if the material name contains the search input
+					if (materialName.includes(searchInput)) {
+						cards[i].style.display = ''; // Show the card if it matches the search
+					} else {
+						cards[i].style.display = 'none'; // Hide the card if it doesn't match the search
+					}
+				}
+			}
+
+			// Event listener for input change
+			document.getElementById('searchInput').addEventListener('input', search);
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+	</body>
+</html>

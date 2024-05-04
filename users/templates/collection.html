@@ -1,0 +1,72 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>E Materials</title>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="ie=edge" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+			rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="{% static 'css/style.css' %}" />
+		{% tailwind_css %}
+	</head>
+
+	<body class="font-arial leading-normal tracking-normal bg">
+		{% include 'includes/navbar.html' %}
+
+		<div class="flex flex-row justify-evenly flex-wrap mt-40 mb-24 mx-3">
+			{% for list in materials %}
+			<div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
+				<div
+					class="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
+					<img
+						src="{{list.profile_pic.url}}"
+						alt="card-image" />
+				</div>
+				<div class="p-6">
+					<h5
+						class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+						{{list.name}}
+					</h5>
+					<p class="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
+						{% if list.status == 'Available' %}
+						No one Borrowing this book at this moment
+
+						{% else %}
+						This book is currently borrowed by: <b>{{list.borrower}}</b>
+						{% endif %}
+					</p>
+				</div>
+				<div class="p-6 pt-0">
+					{% if list.status == 'Available' %}
+					<div
+						class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-green-900 text-white shadow-md shadow-green-900/10 hover:shadow-lg hover:shadow-green-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+						type="button">
+						{{list.status}}
+					</div>
+
+					{% else %}
+					<div
+						class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-red-900 text-white shadow-md shadow-red-900/10 hover:shadow-lg hover:shadow-red-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+						type="button">
+						{{list.status}}
+					</div>
+					{% endif %}
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+	</body>
+</html>

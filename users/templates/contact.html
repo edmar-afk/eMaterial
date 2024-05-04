@@ -1,0 +1,64 @@
+{% load static tailwind_tags %}<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>E Class</title>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="ie=edge" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+			rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="{% static 'css/style.css' %}" />
+		{% tailwind_css %}
+	</head>
+
+	<body class="bg-gray-900 font-arial leading-normal tracking-normal bg">
+		{% include 'includes/navbar.html' %}
+		<section class="bg-gray-100 mt-14">
+			<div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-20 lg:px-8">
+				<div class="max-w-2xl lg:max-w-4xl mx-auto text-center">
+					<h2 class="text-3xl font-extrabold text-gray-900">Contact me</h2>
+				</div>
+				<div class="mt-16 lg:mt-20">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+						<div class="rounded-lg overflow-hidden">
+							<iframe
+								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d120281.4438116539!2d123.26375097114155!3d7.63374789831233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3256a6b2fe8073ed%3A0xe2f3581d93ae8ead!2sDinas%2C%20Zamboanga%20del%20Sur!5e1!3m2!1sen!2sph!4v1714802780730!5m2!1sen!2sph"
+								width="600"
+								height="450"
+								style="border: 0"
+								allowfullscreen=""
+								loading="lazy"
+								referrerpolicy="no-referrer-when-downgrade"></iframe>
+						</div>
+						<div>
+							<div class="max-w-full mx-auto rounded-lg overflow-hidden">
+								<div class="px-6 py-4">
+									<h3 class="text-lg font-medium text-gray-900">Our Address</h3>
+									<p class="mt-1 text-gray-600">Dinas, Zamboanga del Sur, Philippines</p>
+								</div>
+
+								<div class="border-t border-gray-200 px-6 py-4">
+									<h3 class="text-lg font-medium text-gray-900">Contact</h3>
+									<p class="mt-1 text-gray-600">Email: lugatimanrolando18@gmail.com</p>
+									<p class="mt-1 text-gray-600">Phone: 09484807792</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+	</body>
+</html>

@@ -1,0 +1,96 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>E Class</title>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="ie=edge" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+			rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="{% static 'css/style.css' %}" />
+		{% tailwind_css %}
+	</head>
+
+	<body class="bg-gray-900 font-arial leading-normal tracking-normal">
+		{% include 'includes/navbar.html' %}
+		<div
+			id="container"
+			class="p-20 w-auto flex px-2 sm:px-24 justify-center relative">
+			<div
+				id="container"
+				class="p-20rounded-xl sm:p-16 md:p-20 lg:p-24 xl:p-20 w-auto flex flex-col md:flex-row px-4 sm:px-8 md:px-24 lg:px-24 xl:px-24 relative">
+				<div class="mr-2">
+					<img
+						class="rounded-lg w-[90%]"
+						src="{% static 'img/me.jpg' %}"
+						alt="image of myself" />
+				</div>
+				<div class="w-full sm:w-[70%] md:w-[60%] lg:w-[50%]">
+					<h1 class="text-white font-bold text-3xl mt-6 mb-8">Hey it's me, Lugatiman Rolando Calubag</h1>
+
+					<p class="text-white w-full sm:w-[35rem] md:w-[30rem] lg:w-[25rem] mb-4">
+						<b class="text-blue-400 font-bold">Birthdate</b>
+						: April 05, 2002
+					</p>
+					<p class="text-white w-full sm:w-[35rem] md:w-[30rem] lg:w-[25rem] mb-4">
+						<b class="text-blue-400 font-bold">Age</b>
+						: 21
+					</p>
+					<p class="text-white w-full sm:w-[35rem] md:w-[30rem] lg:w-[25rem] mb-4">
+						<b class="text-blue-400 font-bold">Address</b>
+						: Ignacio Garrata Dinas Dinas, Zamboanga del Sur
+					</p>
+					<p class="text-white w-full sm:w-[35rem] md:w-[30rem] lg:w-[25rem] mb-4">
+						<b class="text-blue-400 font-bold">Civil Status</b>
+						: Single
+					</p>
+
+					<p class="text-white w-full sm:w-[35rem] md:w-[30rem] lg:w-[25rem] mb-8 text-center mt-14">
+						<b class="text-blue-400 font-bold">---- Educational Background ----</b>
+					</p>
+					<p class="text-white w-full sm:w-[35rem] md:w-[30rem] lg:w-[25rem] mb-4">
+						<b class="text-blue-400 font-bold">Elementary</b>
+						: New Mirapao Elementary School
+					</p>
+					<p class="text-white w-full sm:w-[35rem] md:w-[30rem] lg:w-[25rem] mb-4">
+						<b class="text-blue-400 font-bold">Secondary</b>
+						: Ignacio Garrata National High School
+						<br />
+						and Betinan Senior High School
+					</p>
+					<p class="text-white w-full sm:w-[35rem] md:w-[30rem] lg:w-[25rem] mb-4">
+						<b class="text-blue-400 font-bold">College</b>
+						: JH Cerilles State College
+					</p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="flex flex-col justify-center items-center">
+			<p class="text-white w-full px-4 md:px-40 mb-8 text-center">
+				<b class="text-blue-400 font-bold">---- Disclaimer: ----</b>
+			</p>
+			<p class="text-white w-full px-4 md:px-40 mb-4">
+				The BNHS E_MATERIALS INQUIRY project serves as a hands-on exercise for putting the skills and concepts into
+				practice. obtained through the IT310 course on Web systems and technology. It entails using web development
+				resources such as HTML, JavaScript, CSS, and other languages to build and run the platform. This practical
+				method yields important understanding of the web-based systems' developing stages. Please be aware that this
+				project's content is only meant to be used for educational purposes. Even while you should strive for accuracy,
+				you must recognize that this is not the same as professional direction or take the place of formal education.
+			</p>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+	</body>
+</html>

@@ -1,0 +1,259 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>E Materials</title>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="ie=edge" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+			rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="{% static 'css/style.css' %}" />
+		{% tailwind_css %}
+	</head>
+
+	<body class="font-arial leading-normal tracking-normal">
+		{% include 'includes/sidebar.html' %}
+
+		<nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
+			<div class="px-3 py-3 lg:px-5 lg:pl-3">
+				<div class="flex items-center justify-between">
+					<div class="flex items-center justify-start rtl:justify-end">
+						<button
+							data-drawer-target="logo-sidebar"
+							data-drawer-toggle="logo-sidebar"
+							aria-controls="logo-sidebar"
+							type="button"
+							class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+							<span class="sr-only">Open sidebar</span>
+							<svg
+								class="w-6 h-6"
+								aria-hidden="true"
+								fill="currentColor"
+								viewBox="0 0 20 20"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									clip-rule="evenodd"
+									fill-rule="evenodd"
+									d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+							</svg>
+						</button>
+						<a
+							href="{% url 'librarian_dashboard' %}"
+							class="flex ms-2 md:me-24">
+							<span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-gray-800">
+								BNHS E-Material
+							</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<div class="p-4 sm:ml-64 bg-gray-100">
+			<div class="p-4 mt-14">
+				{% for message in messages%} {% if message.level_tag == 'success' %}
+				<p class="text-center text-green-800 font-bold mt-14 text-md">{{message}}</p>
+				{% else %}
+				<p class="text-center text-red-400 font-bold mt-14 text-md">{{message}}</p>
+				{%endif%} {% endfor %}
+
+				<p class="py-4 text-2xl font-bold">Lists of Materials</p>
+				
+				
+				<div class="flex items-center max-w-sm mx-auto mb-4">   
+					<label for="simple-search" class="sr-only">Search</label>
+					<div class="relative w-full">
+						<div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+							<svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"/>
+							</svg>
+						</div>
+						<input type="text" id="searchInput" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="Search Material..." required />
+					</div>
+					<button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+						<svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+						</svg>
+						<span class="sr-only">Search</span>
+					</button>
+				</div>
+
+				<div class="flex flex-row flex-wrap justify-evenly">
+					{% for material in materials %}
+
+					<div class="w-[300px] my-4 material-search">
+						<a href="#">
+							<img
+								class="rounded-t-lg w-full h-72"
+								src="{{material.profile_pic.url}}"
+								alt="{{material.name}}" />
+						</a>
+						<div class="p-5">
+							<a href="#">
+								<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{material.name}}</h5>
+							</a>
+
+							{% if material.status == 'Available' %}
+							<button
+							data-modal-target="{{material.id}}-modal"
+							data-modal-toggle="{{material.id}}-modal"
+							class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300">
+							Borrow
+						</button>
+							
+							{% else %}
+							<div>
+								<a
+									href="#"
+									class="inline-flex cursor-not-allowed items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300">
+									Borrow Not Available
+								</a>
+								
+							</div>
+							<p class="text-center mt-4">
+								Currently Borrowed by:
+								<b>{{material.borrower}}</b>
+							</p>
+							{% endif %}
+						</div>
+					</div>
+
+					{% endfor %}
+				</div>
+		
+		{% for material in materials %}
+
+		<div
+			id="{{material.id}}-modal"
+			tabindex="-1"
+			aria-hidden="true"
+			class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+			<div class="relative p-4 w-full max-w-md max-h-full">
+				<!-- Modal content -->
+				<div class="relative bg-white rounded-lg shadow">
+					<!-- Modal header -->
+					<div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
+						<h3 class="text-xl font-semibold text-gray-900">Borrowing {{material.name}} Book</h3>
+						<button
+							type="button"
+							class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+							data-modal-hide="authentication-modal">
+							<svg
+								class="w-3 h-3"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 14 14">
+								<path
+									stroke="currentColor"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+							</svg>
+							<span class="sr-only">Close modal</span>
+						</button>
+					</div>
+					<!-- Modal body -->
+					<div class="p-4 md:p-5">
+						<form
+							class="space-y-4"
+							action="{% url 'student_materials' %}"
+							method="POST"
+							enctype="multipart/form-data">
+							{% csrf_token %}
+							<div
+								date-rangepicker
+								class="flex items-center justify-center w-full flex-wrap">
+								<div class="flex py-3">
+									<span class="mx-4 text-gray-500">From</span>
+									<input
+										name="start"
+										type="datetime-local"
+										class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+										id="start_date"
+										readonly />
+								</div>
+
+								<div class="flex py-3">
+									<span class="mx-4 text-gray-500">to</span>
+									<input
+										name="end"
+										type="datetime-local"
+										class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+										placeholder="Select date end" />
+								</div>
+							</div>
+							<input
+								type="hidden"
+								name="material_id"
+								value="{{ material.id }}" />
+							<div class="flex">
+								<button
+									type="submit"
+									name="submit"
+									class="w-full mx-4 bg-green-500 duration-300 hover:bg-green-800 text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+									Borrow
+								</button>
+								<a
+									href="#"
+									data-modal-hide="authentication-modal"
+									class="w-full mx-4 bg-red-700 duration-300 hover:bg-red-800 text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+									Cancel
+								</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% endfor %}
+
+		<script>
+			// JavaScript function to handle search functionality
+			function search() {
+				// Get the search input value
+				var searchInput = document.getElementById('searchInput').value.toLowerCase();
+
+				// Get all card elements
+				var cards = document.getElementsByClassName('material-search');
+
+				// Loop through each card
+				for (var i = 0; i < cards.length; i++) {
+					// Get the material name for each card
+					var materialName = cards[i].querySelector('.text-gray-900').innerText.toLowerCase();
+
+					// Check if the material name contains the search input
+					if (materialName.includes(searchInput)) {
+						cards[i].style.display = ''; // Show the card if it matches the search
+					} else {
+						cards[i].style.display = 'none'; // Hide the card if it doesn't match the search
+					}
+				}
+			}
+
+			// Event listener for input change
+			document.getElementById('searchInput').addEventListener('input', search);
+		</script>
+		<script>
+			// Get the current date and time in the format YYYY-MM-DDTHH:MM
+			var currentDate = new Date().toISOString().slice(0, 16);
+
+			// Set the value of the input field to the current date and time
+			document.getElementById("start_date").value = currentDate;
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+	</body>
+</html>

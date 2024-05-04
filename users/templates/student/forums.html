@@ -1,0 +1,259 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Forums</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+			rel="stylesheet" />
+		{% tailwind_css %}
+	</head>
+	<body>
+		{% include 'includes/sidebar.html' %}
+		<nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
+			<div class="px-3 py-3 lg:px-5 lg:pl-3">
+				<div class="flex items-center justify-between">
+					<div class="flex items-center justify-start rtl:justify-end">
+						<button
+							data-drawer-target="logo-sidebar"
+							data-drawer-toggle="logo-sidebar"
+							aria-controls="logo-sidebar"
+							type="button"
+							class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+							<span class="sr-only">Open sidebar</span>
+							<svg
+								class="w-6 h-6"
+								aria-hidden="true"
+								fill="currentColor"
+								viewBox="0 0 20 20"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									clip-rule="evenodd"
+									fill-rule="evenodd"
+									d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+							</svg>
+						</button>
+						<a
+							href="#"
+							class="flex ms-2 md:me-24">
+							<span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-gray-800">
+								BNHS E-Material
+							</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<div class="p-4 sm:ml-64 mt-16">
+			<!-- Modal toggle -->
+			<button
+				data-modal-target="default-modal"
+				data-modal-toggle="default-modal"
+				class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+				type="button">
+				Ask Question
+			</button>
+
+			{% for message in messages%} {% if message.level_tag == 'success' %}
+			<p class="text-center text-green-800 font-bold mt-14 text-md">{{message}}</p>
+			{% else %}
+			<p class="text-center text-red-400 font-bold mt-14 text-md">{{message}}</p>
+			{%endif%} {% endfor %}
+			<!-- Main modal -->
+			<div
+				id="default-modal"
+				tabindex="-1"
+				aria-hidden="true"
+				class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+				<div class="relative p-4 w-full max-w-2xl max-h-full">
+					<!-- Modal content -->
+					<div class="relative bg-white rounded-lg shadow">
+						<!-- Modal header -->
+						<div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+							<h3 class="text-xl font-semibold text-gray-900">Start a Forum</h3>
+							<button
+								type="button"
+								class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+								data-modal-hide="default-modal">
+								<svg
+									class="w-3 h-3"
+									aria-hidden="true"
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 14 14">
+									<path
+										stroke="currentColor"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+								</svg>
+								<span class="sr-only">Close modal</span>
+							</button>
+						</div>
+						<!-- Modal body -->
+						<div class="p-4 md:p-5 space-y-4">
+							<form
+								class="space-y-4"
+								action="#"
+								method="post"
+								enctype="multipart/form-data">
+								{% csrf_token %}
+								<div>
+									<label
+										for="title"
+										class="block mb-2 text-sm font-medium text-gray-900">
+										Title
+									</label>
+									<input
+										type="text"
+										name="title"
+										id="title"
+										class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
+										placeholder="How to make Lumpia"
+										required />
+								</div>
+								<!-- <div class="mb-3">
+									<label
+										for="formFile"
+										class="mb-2 inline-block text-neutral-500">
+										Insert File
+										<span class="text-xs text-orange-300">(only 1 file can upload per forum)</span>
+									</label>
+									<input
+										class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-blue-200 bg-transparent bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-surface transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3 file:py-[0.32rem] file:text-surface focus:border-green-400 focus:text-gray-700 focus:shadow-inset focus:outline-none"
+										type="file"
+										name="file"
+										id="formFile" />
+								</div> -->
+								<div class="col-span-2">
+									<label
+										for="description"
+										class="block mb-2 text-sm font-medium text-gray-900">
+										Discuss something here
+									</label>
+									<textarea
+										id="description"
+										name="description"
+										rows="4"
+										class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+										placeholder="Write very long description here"
+										required></textarea>
+								</div>
+								<div>
+									<button
+										type="submit"
+										name="submit"
+										class="w-lg text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+										POST
+									</button>
+									<button
+										data-modal-hide="authentication-modal"
+										class="w-lg text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+										Close
+									</button>
+								</div>
+							</form>
+						</div>
+						<!-- Modal footer -->
+					</div>
+				</div>
+			</div>
+
+			<div class="p-4">
+				<div>
+					<p class="text-center text-4xl font-bold my-4">Forums</p>
+
+					<div class="max-w-md mx-auto">
+						<label
+							for="default-search"
+							class="mb-2 text-sm font-medium text-gray-900 sr-only">
+							Search
+						</label>
+						<div class="relative">
+							<div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+								<svg
+									class="w-4 h-4 text-gray-500"
+									aria-hidden="true"
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 20 20">
+									<path
+										stroke="currentColor"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+								</svg>
+							</div>
+							<input
+								type="search"
+								id="searchInput"
+								onkeyup="searchDivs()"
+								class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+								placeholder="Browse Forums"
+								required />
+							<button
+								class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">
+								Search
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div
+					id="forumContainer"
+					class="flex flex-row justify-between flex-wrap mt-12">
+					{% for forum in forums %}
+					<div class="max-w-sm p-6 my-3 bg-white border border-gray-200 rounded-lg shadow-xl searching">
+						<div class="flex items-center my-2 text-gray-900">
+							<p class="mr-2">{{forum.uploader.first_name}}</p>
+							<i
+								class="fa fa-bullhorn animate-bounce text-lg"
+								aria-hidden="true"></i>
+						</div>
+						<div class="material-search">
+							<a href="{% url 'forum_page' %}?forum_id={{ forum.id }}">
+								<h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900">{{forum.title}}</h5>
+							</a>
+						</div>
+						<p class="mb-3 font-normal text-gray-500 dark:text-gray-400 text-ellipsis">{{forum.description}}</p>
+						<a
+							href="{% url 'forum_page' %}?forum_id={{ forum.id }}"
+							class="inline-flex font-medium items-center text-blue-600 hover:scale-110 duration-300">
+							<i
+								class="fa fa-commenting mr-2 animate-pulse"
+								aria-hidden="true"></i>
+							{{ forum.comment_count }} Comment
+						</a>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<script>
+			document.getElementById("searchInput").addEventListener("input", function () {
+				var input = this.value.toLowerCase();
+				var forums = document.querySelectorAll(".searching");
+
+				forums.forEach(function (forum) {
+					var title = forum.querySelector("h5").innerText.toLowerCase();
+					if (title.includes(input)) {
+						forum.classList.remove("hidden");
+					} else {
+						forum.classList.add("hidden");
+					}
+				});
+			});
+		</script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+	</body>
+</html>
